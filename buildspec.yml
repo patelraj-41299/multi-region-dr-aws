@@ -20,3 +20,13 @@ phases:
 artifacts:
   files:
     - '**/*'
+
+  build:
+    commands:
+      - echo "Current directory:"
+      - pwd
+      - echo "Files here:"
+      - ls -la
+      - terraform init
+      - terraform plan
+      - terraform apply -auto-approve
