@@ -13,6 +13,7 @@ phases:
       - mv terraform /usr/local/bin/
   build:
     commands:
+      - cd terraform           # ✅ this is the missing step
       - terraform init
       - terraform plan
       - terraform apply -auto-approve
