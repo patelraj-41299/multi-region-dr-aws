@@ -5,7 +5,8 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
-      - echo Installing Terraform...
+      - echo Installing unzip and Terraform...
+      - yum install -y unzip
       - curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
       - unzip terraform_1.5.7_linux_amd64.zip
       - mv terraform /usr/local/bin/
@@ -19,4 +20,3 @@ phases:
 artifacts:
   files:
     - '**/*'
-
