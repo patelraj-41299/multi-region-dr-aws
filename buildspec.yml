@@ -9,11 +9,10 @@ phases:
       - apt-get update && apt-get install -y unzip
       - rm -rf terraform
       - curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
-      - unzip terraform_1.5.7_linux_amd64.zip
+      - unzip -o terraform_1.5.7_linux_amd64.zip
       - mv terraform /usr/local/bin/
   build:
     commands:
-      - cd terraform
       - terraform init
       - terraform plan
       - terraform apply -auto-approve
@@ -21,4 +20,3 @@ phases:
 artifacts:
   files:
     - '**/*'
-
