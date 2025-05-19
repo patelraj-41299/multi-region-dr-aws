@@ -18,17 +18,18 @@
               "provider": "CodeStarSourceConnection",
               "version": "1"
             },
+            "runOrder": 1,
+            "configuration": {
+              "BranchName": "main",
+              "ConnectionArn": "arn:aws:codeconnections:us-east-2:060795913786:connection/95ef4842-763f-4fed-9a49-97c83d2b46e6",
+              "FullRepositoryId": "patelraj-41299/multi-region-dr-aws"
+            },
             "outputArtifacts": [
               {
                 "name": "SourceOutput"
               }
             ],
-            "configuration": {
-              "ConnectionArn": "arn:aws:codeconnections:us-east-2:060795913786:connection/95ef4842-763f-4fed-9a49-97c83d2b46e6",
-              "FullRepositoryId": "patelraj-41299/multi-region-dr-aws",
-              "BranchName": "main"
-            },
-            "runOrder": 1
+            "inputArtifacts": []
           }
         ]
       },
@@ -43,16 +44,16 @@
               "provider": "CodeBuild",
               "version": "1"
             },
+            "runOrder": 1,
+            "configuration": {
+              "ProjectName": "multi-region-dr-build"
+            },
             "inputArtifacts": [
               {
                 "name": "SourceOutput"
               }
             ],
-            "outputArtifacts": [],
-            "configuration": {
-              "ProjectName": "multi-region-dr-build"
-            },
-            "runOrder": 1
+            "outputArtifacts": []
           }
         ]
       }
