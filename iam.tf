@@ -24,7 +24,10 @@ resource "aws_iam_policy" "s3_replication_policy" {
     Statement = [
       {
         Effect = "Allow",
-        Action = ["s3:GetReplicationConfiguration", "s3:ListBucket"],
+        Action = [
+          "s3:GetReplicationConfiguration",
+          "s3:ListBucket"
+        ],
         Resource = "*"
       },
       {

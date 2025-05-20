@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "primary_bucket" {
-  bucket = "multi-region-dr-primary"
+  provider = aws.primary
+  bucket   = "multi-region-dr-primary"
 
   lifecycle {
     prevent_destroy = true
@@ -8,7 +9,8 @@ resource "aws_s3_bucket" "primary_bucket" {
 }
 
 resource "aws_s3_bucket" "secondary_bucket" {
-  bucket = "multi-region-dr-secondary"
+  provider = aws.secondary
+  bucket   = "multi-region-dr-secondary"
 
   lifecycle {
     prevent_destroy = true
@@ -17,7 +19,8 @@ resource "aws_s3_bucket" "secondary_bucket" {
 }
 
 resource "aws_s3_bucket_versioning" "primary_versioning" {
-  bucket = aws_s3_bucket.primary_bucket.id
+  provider = aws.primary
+  bucket   = aws_s3_bucket.primary_bucket.id
 
   versioning_configuration {
     status = "Enabled"
@@ -30,7 +33,8 @@ resource "aws_s3_bucket_versioning" "primary_versioning" {
 }
 
 resource "aws_s3_bucket_versioning" "secondary_versioning" {
-  bucket = aws_s3_bucket.secondary_bucket.id
+  provider = aws.secondary
+  bucket   = aws_s3_bucket.secondary_bucket.id
 
   versioning_configuration {
     status = "Enabled"
@@ -43,8 +47,9 @@ resource "aws_s3_bucket_versioning" "secondary_versioning" {
 }
 
 resource "aws_s3_bucket_replication_configuration" "replication" {
-  bucket = aws_s3_bucket.primary_bucket.id
-  role   = aws_iam_role.s3_replication_role.arn
+  provider = aws.primary
+  bucket   = aws_s3_bucket.primary_bucket.id
+  role     = aws_iam_role.s3_replication_role.arn
 
   rule {
     id     = "replication-rule"
