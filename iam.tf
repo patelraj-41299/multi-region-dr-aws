@@ -49,4 +49,9 @@ resource "aws_iam_policy" "s3_replication_policy" {
 resource "aws_iam_role_policy_attachment" "replication_policy_attachment" {
   role       = aws_iam_role.s3_replication_role.name
   policy_arn = aws_iam_policy.s3_replication_policy.arn
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = all
+  }
 }
