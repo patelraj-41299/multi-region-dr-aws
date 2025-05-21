@@ -1,0 +1,66 @@
+{
+  "pipeline": {
+    "name": "multi-region-dr-pipeline",
+    "roleArn": "arn:aws:iam::060795913786:role/codepipeline-role",
+    "artifactStore": {
+      "type": "S3",
+      "location": "codepipeline-us-east-2-060795913786"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "Source",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "CodeStarSourceConnection",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ConnectionArn": "arn:aws:codeconnections:us-east-2:060795913786:connection/95ef4842-763f-4fed-9a49-97c83d2b46e6",
+              "FullRepositoryId": "patelraj-41299/multi-region-dr-aws",
+              "BranchName": "main",
+              "OutputArtifactFormat": "CODE_ZIP"
+            },
+            "outputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "inputArtifacts": [],
+            "region": "us-east-2"
+          }
+        ]
+      },
+      {
+        "name": "Build",
+        "actions": [
+          {
+            "name": "TerraformBuild",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ProjectName": "multi-region-dr-build"
+            },
+            "outputArtifacts": [],
+            "inputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "region": "us-east-2"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}
